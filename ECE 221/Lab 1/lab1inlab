@@ -1,0 +1,47 @@
+% 1
+x = linspace(-1,1,41);
+y = linspace(-2,2,81);
+
+% 2
+[nr, nc] = size(x);
+length(x);
+
+% 3
+[X,Y] = meshgrid(x,y);
+fxy = 1./(1+(X.^2+Y.^2).^0.5);
+
+% 5
+grid on;
+
+% plot and label
+figure;
+mesh(X,Y,fxy);
+xlabel('x axis');
+ylabel('y axis');
+zlabel('f_{xy}');
+title("The function f_{xy}");
+
+% at the desired y values
+points = [-2;0;1.6];
+col_points = zeros(1,3);
+
+for k = 1:length(points)
+    [row,col] = find(y==points(k));
+    col_points(k) = col;
+end
+
+% make a new figure and hold the rest of the plots on screen
+grid on;
+figure;
+hold;
+
+% plotting traces
+for k = 1:length(points)
+    plot(x, fxy(col_points(k),:));
+end
+
+% labelling
+xlabel('x axis');
+ylabel('f_{xy}');
+title("f_{xy} for Specific Values of y");
+legend('y = -2 m', 'y = 0 m', 'y = 1.6 m');
